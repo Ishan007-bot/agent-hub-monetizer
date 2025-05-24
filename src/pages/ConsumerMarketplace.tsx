@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Star, Users, Zap, Filter, Grid, List } from 'lucide-react';
-import Navigation from '@/components/layout/Navigation';
+import { Navbar } from '@/components/Navbar';
 import AgentCard from '@/components/consumer/AgentCard';
 
 const ConsumerMarketplace = () => {
@@ -135,14 +134,71 @@ const ConsumerMarketplace = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navigation />
+    <div className="min-h-screen bg-background">
+      <Navbar />
       
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-6 py-8 pt-20">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">AI Agent Marketplace</h1>
-          <p className="text-gray-600">Discover and use cutting-edge AI agents from the community</p>
+          <p className="text-muted-foreground">Discover and use cutting-edge AI agents from the community</p>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="flex flex-col md:flex-row gap-4 mb-8">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder="Search agents..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <div className="flex gap-4">
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((category) => (
+                  <SelectItem key={category.value} value={category.value}>
+                    {category.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="popular">Most Popular</SelectItem>
+                <SelectItem value="rating">Highest Rated</SelectItem>
+                <SelectItem value="price-low">Price: Low to High</SelectItem>
+                <SelectItem value="price-high">Price: High to Low</SelectItem>
+                <SelectItem value="newest">Newest</SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="flex rounded-md border">
+              <Button
+                variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                size="icon"
+                onClick={() => setViewMode('grid')}
+                className="rounded-none rounded-l-md"
+              >
+                <Grid className="h-4 w-4" />
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'ghost'}
+                size="icon"
+                onClick={() => setViewMode('list')}
+                className="rounded-none rounded-r-md"
+              >
+                <List className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
 
         {/* Featured Section */}
@@ -156,20 +212,22 @@ const ConsumerMarketplace = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-2 border-orange-200"
-                      onClick={() => navigate(`/agent/${agent.id}`)}>
+                <Card
+                  className="h-full cursor-pointer border-primary/20 hover:border-primary/40 transition-colors"
+                  onClick={() => navigate(`/agent/${agent.id}`)}
+                >
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
-                      <Badge className="bg-orange-100 text-orange-700 border-orange-200">
+                      <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
                         Featured
                       </Badge>
-                      <Badge variant="secondary">{agent.category}</Badge>
+                      <Badge variant="outline">{agent.category}</Badge>
                     </div>
                     <CardTitle className="text-xl">{agent.name}</CardTitle>
-                    <p className="text-sm text-gray-600">by {agent.author}</p>
+                    <p className="text-sm text-muted-foreground">by {agent.author}</p>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-700 mb-4 line-clamp-2">{agent.description}</p>
+                    <p className="text-muted-foreground mb-4 line-clamp-2">{agent.description}</p>
                     
                     <div className="flex flex-wrap gap-2 mb-4">
                       {agent.tags.slice(0, 3).map((tag) => (
@@ -186,11 +244,11 @@ const ConsumerMarketplace = () => {
                           <span className="text-sm font-medium">{agent.rating}</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <Users className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-600">{agent.users}</span>
+                          <Users className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm text-muted-foreground">{agent.users}</span>
                         </div>
                       </div>
-                      <div className="text-orange-600 font-bold">
+                      <div className="text-primary font-bold">
                         {agent.price} tokens
                       </div>
                     </div>
@@ -201,94 +259,22 @@ const ConsumerMarketplace = () => {
           </div>
         </section>
 
-        {/* Search and Filters */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Search agents, categories, or tags..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-          
-          <div className="flex gap-4">
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category.value} value={category.value}>
-                    {category.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-40">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="popular">Most Popular</SelectItem>
-                <SelectItem value="rating">Highest Rated</SelectItem>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
-                <SelectItem value="newest">Newest</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <div className="flex border rounded-md">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="rounded-r-none"
+        {/* All Agents */}
+        <section>
+          <h2 className="text-2xl font-bold mb-6">All Agents</h2>
+          <div className={viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}>
+            {sortedAgents.map((agent) => (
+              <motion.div
+                key={agent.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                <Grid className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="rounded-l-none"
-              >
-                <List className="w-4 h-4" />
-              </Button>
-            </div>
+                <AgentCard agent={agent} viewMode={viewMode} onClick={() => navigate(`/agent/${agent.id}`)} />
+              </motion.div>
+            ))}
           </div>
-        </div>
-
-        {/* Results */}
-        <div className="mb-4">
-          <p className="text-gray-600">
-            Showing {sortedAgents.length} of {featuredAgents.length} agents
-          </p>
-        </div>
-
-        {/* Agent Grid */}
-        <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-          {sortedAgents.map((agent) => (
-            <AgentCard 
-              key={agent.id} 
-              agent={agent} 
-              viewMode={viewMode}
-              onClick={() => navigate(`/agent/${agent.id}`)}
-            />
-          ))}
-        </div>
-
-        {sortedAgents.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
-              <Search className="w-16 h-16 mx-auto" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">No agents found</h3>
-            <p className="text-gray-500">Try adjusting your search criteria or browse all categories</p>
-          </div>
-        )}
+        </section>
       </div>
     </div>
   );

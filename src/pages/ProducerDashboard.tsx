@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -10,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Upload, Code, Play, Settings, BarChart, Eye } from 'lucide-react';
 import CodeEditor from '@/components/producer/CodeEditor';
 import AgentPreview from '@/components/producer/AgentPreview';
-import Navigation from '@/components/layout/Navigation';
+import { Navbar } from '@/components/Navbar';
 
 const ProducerDashboard = () => {
   const [activeTab, setActiveTab] = useState('upload');
@@ -41,13 +40,13 @@ const ProducerDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navigation />
+    <div className="min-h-screen bg-background">
+      <Navbar />
       
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-6 py-8 pt-20">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Producer Dashboard</h1>
-          <p className="text-gray-600">Create, manage, and monetize your AI agents</p>
+          <p className="text-muted-foreground">Create, manage, and monetize your AI agents</p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -130,7 +129,7 @@ const ProducerDashboard = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card>
                     <CardHeader>
                       <div className="flex justify-between items-start">
                         <CardTitle className="text-lg">{agent.name}</CardTitle>
@@ -138,20 +137,20 @@ const ProducerDashboard = () => {
                           {agent.status}
                         </Badge>
                       </div>
-                      <p className="text-gray-600 text-sm">{agent.description}</p>
+                      <p className="text-muted-foreground text-sm">{agent.description}</p>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-2">
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Earnings:</span>
+                          <span className="text-sm text-muted-foreground">Earnings:</span>
                           <span className="font-semibold">${agent.earnings}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Users:</span>
+                          <span className="text-sm text-muted-foreground">Users:</span>
                           <span className="font-semibold">{agent.users}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm text-gray-600">Rating:</span>
+                          <span className="text-sm text-muted-foreground">Rating:</span>
                           <span className="font-semibold">{agent.rating || 'N/A'}</span>
                         </div>
                       </div>
@@ -172,25 +171,33 @@ const ProducerDashboard = () => {
 
           <TabsContent value="analytics" className="mt-8">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <Card className="text-center p-6">
-                <BarChart className="w-12 h-12 text-green-600 mx-auto mb-4" />
-                <div className="text-3xl font-bold text-green-600 mb-2">$1,245</div>
-                <div className="text-gray-600">Total Earnings</div>
+              <Card>
+                <CardContent className="text-center p-6">
+                  <BarChart className="w-12 h-12 text-primary mx-auto mb-4" />
+                  <div className="text-3xl font-bold text-primary mb-2">$1,245</div>
+                  <div className="text-muted-foreground">Total Earnings</div>
+                </CardContent>
               </Card>
               
-              <Card className="text-center p-6">
-                <div className="text-3xl font-bold text-blue-600 mb-2">2,547</div>
-                <div className="text-gray-600">Total Users</div>
+              <Card>
+                <CardContent className="text-center p-6">
+                  <div className="text-3xl font-bold text-primary mb-2">2,547</div>
+                  <div className="text-muted-foreground">Total Users</div>
+                </CardContent>
               </Card>
               
-              <Card className="text-center p-6">
-                <div className="text-3xl font-bold text-purple-600 mb-2">12,340</div>
-                <div className="text-gray-600">API Calls</div>
+              <Card>
+                <CardContent className="text-center p-6">
+                  <div className="text-3xl font-bold text-primary mb-2">12,340</div>
+                  <div className="text-muted-foreground">API Calls</div>
+                </CardContent>
               </Card>
               
-              <Card className="text-center p-6">
-                <div className="text-3xl font-bold text-orange-600 mb-2">4.8</div>
-                <div className="text-gray-600">Avg Rating</div>
+              <Card>
+                <CardContent className="text-center p-6">
+                  <div className="text-3xl font-bold text-primary mb-2">4.8</div>
+                  <div className="text-muted-foreground">Avg Rating</div>
+                </CardContent>
               </Card>
             </div>
 
@@ -199,8 +206,8 @@ const ProducerDashboard = () => {
                 <CardTitle>Performance Overview</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <p className="text-gray-500">Analytics Chart Placeholder</p>
+                <div className="h-96 flex items-center justify-center bg-muted/10 rounded-lg">
+                  <p className="text-muted-foreground">Charts coming soon...</p>
                 </div>
               </CardContent>
             </Card>
@@ -209,13 +216,10 @@ const ProducerDashboard = () => {
           <TabsContent value="settings" className="mt-8">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Settings className="w-6 h-6 mr-2" />
-                  Account Settings
-                </CardTitle>
+                <CardTitle>Account Settings</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <CardContent>
+                <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-2">Display Name</label>
                     <Input placeholder="Your display name" />
@@ -224,14 +228,12 @@ const ProducerDashboard = () => {
                     <label className="block text-sm font-medium mb-2">Email</label>
                     <Input type="email" placeholder="your@email.com" />
                   </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Bio</label>
+                    <Textarea placeholder="Tell us about yourself" rows={4} />
+                  </div>
+                  <Button>Save Changes</Button>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-2">Bio</label>
-                  <Textarea placeholder="Tell us about yourself" rows={3} />
-                </div>
-
-                <Button>Save Changes</Button>
               </CardContent>
             </Card>
           </TabsContent>
