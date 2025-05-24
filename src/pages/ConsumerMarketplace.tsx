@@ -13,7 +13,7 @@ import AgentCard from '@/components/consumer/AgentCard';
 
 const ConsumerMarketplace = () => {
   const navigate = useNavigate();
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
