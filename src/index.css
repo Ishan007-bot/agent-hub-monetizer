@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -54,40 +55,40 @@
   }
 
   .dark {
-    /* Very dark purple background */
-    --background: 270 47% 11%;
-    --foreground: 293 42% 34%;  /* #522258 */
+    /* Purple-pink theme based on #DC8BE0 */
+    --background: 308 39% 13%;  /* Very dark purple-pink */
+    --foreground: 308 39% 87%;  /* Light purple-pink #DC8BE0 */
 
-    /* Slightly lighter dark purple for cards */
-    --card: 270 47% 15%;
-    --card-foreground: 293 42% 34%;  /* #522258 */
+    /* Cards with slightly lighter purple-pink */
+    --card: 308 39% 17%;
+    --card-foreground: 308 39% 87%;  /* #DC8BE0 */
 
-    --popover: 270 47% 15%;
-    --popover-foreground: 293 42% 34%;  /* #522258 */
+    --popover: 308 39% 17%;
+    --popover-foreground: 308 39% 87%;  /* #DC8BE0 */
 
-    /* Dark purple for primary */
-    --primary: 270 47% 18%;
-    --primary-foreground: 293 42% 34%;  /* #522258 */
+    /* Primary using the main color */
+    --primary: 308 39% 72%;  /* #DC8BE0 */
+    --primary-foreground: 308 39% 13%;
 
-    /* Darker purple for secondary */
-    --secondary: 270 47% 13%;
-    --secondary-foreground: 293 42% 34%;  /* #522258 */
+    /* Secondary darker */
+    --secondary: 308 39% 15%;
+    --secondary-foreground: 308 39% 87%;  /* #DC8BE0 */
 
-    /* Darkest purple for muted */
-    --muted: 270 47% 10%;
-    --muted-foreground: 293 42% 44%;  /* Slightly lighter for muted text */
+    /* Muted darkest */
+    --muted: 308 39% 11%;
+    --muted-foreground: 308 39% 67%;  /* Slightly darker #DC8BE0 */
 
-    /* Text color as accent */
-    --accent: 293 42% 34%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent as main color */
+    --accent: 308 39% 72%;  /* #DC8BE0 */
+    --accent-foreground: 308 39% 13%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 293 42% 34%;  /* #522258 */
+    --destructive-foreground: 308 39% 87%;  /* #DC8BE0 */
 
-    /* Border colors in dark purple */
-    --border: 270 47% 20%;
-    --input: 270 47% 20%;
-    --ring: 270 47% 25%;
+    /* Border colors in purple-pink theme */
+    --border: 308 39% 22%;
+    --input: 308 39% 22%;
+    --ring: 308 39% 72%;  /* #DC8BE0 */
 
     --gradient-background: linear-gradient(135deg, var(--gradient-dark-start), var(--gradient-dark-mid), var(--gradient-dark-end));
   }
@@ -119,29 +120,29 @@
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: rgba(26, 11, 46, 0.3);  /* Darkest purple */
+  background: rgba(34, 12, 38, 0.3);  /* Dark purple-pink */
   border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(45, 18, 69, 0.4);  /* Dark purple */
+  background: rgba(86, 27, 96, 0.4);  /* Medium purple-pink */
   border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(82, 34, 88, 0.5);  /* #522258 */
+  background: rgba(220, 139, 224, 0.5);  /* #DC8BE0 */
 }
 
 /* Input placeholder color for dark mode */
 .dark input::placeholder,
 .dark textarea::placeholder {
-  color: rgba(82, 34, 88, 0.6);  /* Semi-transparent #522258 */
+  color: rgba(220, 139, 224, 0.6);  /* Semi-transparent #DC8BE0 */
 }
 
 /* Code editor and preview text colors for dark mode */
 .dark .monaco-editor,
 .dark .preview-content {
-  color: #522258 !important;
+  color: #DC8BE0 !important;
 }
 
 /* Additional text color overrides for dark mode */
@@ -153,9 +154,9 @@
 .dark h5,
 .dark h6,
 .dark p {
-  color: #522258;
+  color: #DC8BE0;
 }
 
 .dark .text-muted-foreground {
-  color: rgba(82, 34, 88, 0.8);  /* Semi-transparent #522258 */
+  color: rgba(220, 139, 224, 0.8);  /* Semi-transparent #DC8BE0 */
 }

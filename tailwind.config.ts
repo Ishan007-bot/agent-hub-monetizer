@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme"
 import plugin from "tailwindcss/plugin"
@@ -108,9 +109,9 @@ export default {
 					'--gradient-light-start': '#ff7e5f',
 					'--gradient-light-mid': '#feb47b',
 					'--gradient-light-end': '#ffb88c',
-					'--gradient-dark-start': '#1A0B2E',
-					'--gradient-dark-mid': '#2D1245',
-					'--gradient-dark-end': '#3D1959'
+					'--gradient-dark-start': '#220C26',
+					'--gradient-dark-mid': '#561B60',
+					'--gradient-dark-end': '#DC8BE0'
 				},
 			})
 		}),

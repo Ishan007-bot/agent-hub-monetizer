@@ -125,18 +125,18 @@ const AIAgentAnimation = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
-  // Dynamic colors based on theme
+  // Dynamic colors based on theme - updated for purple-pink dark theme
   const colors = {
     background: isDark 
-      ? 'linear-gradient(135deg, #1a0b2e 0%, #2d1245 50%, #3d1959 100%)'
+      ? 'linear-gradient(135deg, #220C26 0%, #561B60 50%, #DC8BE0 100%)'
       : 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ffb88c 100%)',
-    primary: isDark ? '#8B5CF6' : '#F97316',
-    secondary: isDark ? '#06B6D4' : '#3B82F6',
-    accent: isDark ? '#10B981' : '#EF4444',
-    node: isDark ? '#A855F7' : '#F59E0B',
-    connection: isDark ? 'rgba(139, 92, 246, 0.3)' : 'rgba(249, 115, 22, 0.3)',
-    text: isDark ? '#E5E7EB' : '#374151',
-    glow: isDark ? '#8B5CF6' : '#F97316'
+    primary: isDark ? '#DC8BE0' : '#F97316',
+    secondary: isDark ? '#B45BC7' : '#3B82F6',
+    accent: isDark ? '#E6A3E8' : '#EF4444',
+    node: isDark ? '#DC8BE0' : '#F59E0B',
+    connection: isDark ? 'rgba(220, 139, 224, 0.3)' : 'rgba(249, 115, 22, 0.3)',
+    text: isDark ? '#DC8BE0' : '#374151',
+    glow: isDark ? '#DC8BE0' : '#F97316'
   };
 
   return (
