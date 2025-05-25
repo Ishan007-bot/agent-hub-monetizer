@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowRight, Sparkles, Code, Users } from 'lucide-react';
 import { Navbar } from "@/components/Navbar";
-import Spline from '@splinetool/react-spline';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -62,11 +61,8 @@ const Landing = () => {
               transition={{ duration: 1, delay: 0.2 }}
               className="relative h-[500px] rounded-2xl overflow-hidden"
             >
-              <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-2xl">
-                <Spline
-                  scene="https://prod.spline.design/6Hn5rQ0-sJ1Nq9Rn/scene.splinecode"
-                  className="w-full h-full"
-                />
+              <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-2xl relative">
+                <AIAgentAnimation />
               </div>
             </motion.div>
           </div>
@@ -120,6 +116,90 @@ const Landing = () => {
           </div>
         </section>
       </main>
+    </div>
+  );
+};
+
+const AIAgentAnimation = () => {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="relative">
+        {/* Central AI Brain */}
+        <motion.div
+          className="w-32 h-32 bg-gradient-to-br from-orange-400 to-blue-500 rounded-full relative"
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          <div className="absolute inset-4 bg-gradient-to-br from-orange-300 to-blue-400 rounded-full animate-pulse" />
+          <div className="absolute inset-8 bg-gradient-to-br from-orange-200 to-blue-300 rounded-full" />
+        </motion.div>
+
+        {/* Orbiting Nodes */}
+        {[0, 1, 2, 3, 4, 5].map((index) => (
+          <motion.div
+            key={index}
+            className="absolute w-4 h-4 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full"
+            style={{
+              top: '50%',
+              left: '50%',
+              transformOrigin: '0 0',
+            }}
+            animate={{
+              rotate: [0, 360],
+              x: [0, Math.cos((index * 60) * Math.PI / 180) * 100],
+              y: [0, Math.sin((index * 60) * Math.PI / 180) * 100],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "linear",
+              delay: index * 0.5,
+            }}
+          />
+        ))}
+
+        {/* Connecting Lines */}
+        <div className="absolute inset-0">
+          <svg className="w-full h-full" viewBox="0 0 300 300">
+            {[0, 1, 2, 3, 4, 5].map((index) => (
+              <motion.line
+                key={index}
+                x1="150"
+                y1="150"
+                x2={150 + Math.cos((index * 60) * Math.PI / 180) * 100}
+                y2={150 + Math.sin((index * 60) * Math.PI / 180) * 100}
+                stroke="rgba(59, 130, 246, 0.3)"
+                strokeWidth="2"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: index * 0.2,
+                }}
+              />
+            ))}
+          </svg>
+        </div>
+
+        {/* Floating Text */}
+        <motion.div
+          className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-center"
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 3, repeat: Infinity }}
+        >
+          <p className="text-white text-lg font-semibold">AI Agent Network</p>
+          <p className="text-gray-300 text-sm">Connected Intelligence</p>
+        </motion.div>
+      </div>
     </div>
   );
 };
