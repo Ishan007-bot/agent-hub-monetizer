@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowRight, Sparkles, Code, Users } from 'lucide-react';
 import { Navbar } from "@/components/Navbar";
+import { useTheme } from "@/components/theme-provider";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const Landing = () => {
               transition={{ duration: 1, delay: 0.2 }}
               className="relative h-[500px] rounded-2xl overflow-hidden"
             >
-              <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-2xl relative">
+              <div className="w-full h-full rounded-2xl relative">
                 <AIAgentAnimation />
               </div>
             </motion.div>
@@ -121,85 +122,212 @@ const Landing = () => {
 };
 
 const AIAgentAnimation = () => {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="relative">
-        {/* Central AI Brain */}
-        <motion.div
-          className="w-32 h-32 bg-gradient-to-br from-orange-400 to-blue-500 rounded-full relative"
-          animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        >
-          <div className="absolute inset-4 bg-gradient-to-br from-orange-300 to-blue-400 rounded-full animate-pulse" />
-          <div className="absolute inset-8 bg-gradient-to-br from-orange-200 to-blue-300 rounded-full" />
-        </motion.div>
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
-        {/* Orbiting Nodes */}
-        {[0, 1, 2, 3, 4, 5].map((index) => (
+  // Dynamic colors based on theme
+  const colors = {
+    background: isDark 
+      ? 'linear-gradient(135deg, #1a0b2e 0%, #2d1245 50%, #3d1959 100%)'
+      : 'linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ffb88c 100%)',
+    primary: isDark ? '#8B5CF6' : '#F97316',
+    secondary: isDark ? '#06B6D4' : '#3B82F6',
+    accent: isDark ? '#10B981' : '#EF4444',
+    node: isDark ? '#A855F7' : '#F59E0B',
+    connection: isDark ? 'rgba(139, 92, 246, 0.3)' : 'rgba(249, 115, 22, 0.3)',
+    text: isDark ? '#E5E7EB' : '#374151',
+    glow: isDark ? '#8B5CF6' : '#F97316'
+  };
+
+  return (
+    <div 
+      className="absolute inset-0 w-full h-full rounded-2xl"
+      style={{ background: colors.background }}
+    >
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <svg width="100%" height="100%" className="absolute inset-0">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke={colors.connection} strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      {/* Central Neural Hub */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative">
+          {/* Main Core */}
           <motion.div
-            key={index}
-            className="absolute w-4 h-4 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full"
+            className="w-24 h-24 rounded-full relative"
             style={{
-              top: '50%',
-              left: '50%',
-              transformOrigin: '0 0',
+              background: `linear-gradient(45deg, ${colors.primary}, ${colors.secondary})`,
+              boxShadow: `0 0 60px ${colors.glow}40`
             }}
             animate={{
+              scale: [1, 1.15, 1],
               rotate: [0, 360],
-              x: [0, Math.cos((index * 60) * Math.PI / 180) * 100],
-              y: [0, Math.sin((index * 60) * Math.PI / 180) * 100],
             }}
             transition={{
-              duration: 6,
+              duration: 8,
               repeat: Infinity,
-              ease: "linear",
-              delay: index * 0.5,
+              ease: "linear"
             }}
-          />
-        ))}
+          >
+            {/* Inner Rings */}
+            <div 
+              className="absolute inset-2 rounded-full animate-pulse"
+              style={{ 
+                background: `linear-gradient(45deg, ${colors.secondary}80, ${colors.accent}80)`,
+                boxShadow: `inset 0 0 20px ${colors.glow}60`
+              }}
+            />
+            <div 
+              className="absolute inset-4 rounded-full"
+              style={{ 
+                background: `radial-gradient(circle, ${colors.primary}60, transparent)`,
+              }}
+            />
+          </motion.div>
 
-        {/* Connecting Lines */}
-        <div className="absolute inset-0">
-          <svg className="w-full h-full" viewBox="0 0 300 300">
-            {[0, 1, 2, 3, 4, 5].map((index) => (
-              <motion.line
+          {/* Orbiting Intelligence Nodes */}
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => {
+            const radius = 120 + (index % 2) * 40;
+            const angle = (index * 45) * Math.PI / 180;
+            return (
+              <motion.div
                 key={index}
-                x1="150"
-                y1="150"
-                x2={150 + Math.cos((index * 60) * Math.PI / 180) * 100}
-                y2={150 + Math.sin((index * 60) * Math.PI / 180) * 100}
-                stroke="rgba(59, 130, 246, 0.3)"
-                strokeWidth="2"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
+                className="absolute w-3 h-3 rounded-full"
+                style={{
+                  background: `linear-gradient(45deg, ${colors.node}, ${colors.accent})`,
+                  boxShadow: `0 0 15px ${colors.node}80`,
+                  top: '50%',
+                  left: '50%',
+                  transformOrigin: '0 0',
+                }}
+                animate={{
+                  rotate: [0, 360],
+                  x: [0, Math.cos(angle) * radius],
+                  y: [0, Math.sin(angle) * radius],
+                }}
                 transition={{
-                  duration: 2,
+                  duration: 10 + index,
                   repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: index * 0.2,
+                  ease: "linear",
+                  delay: index * 0.3,
                 }}
               />
-            ))}
-          </svg>
-        </div>
+            );
+          })}
 
-        {/* Floating Text */}
-        <motion.div
-          className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 text-center"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 3, repeat: Infinity }}
-        >
-          <p className="text-white text-lg font-semibold">AI Agent Network</p>
-          <p className="text-gray-300 text-sm">Connected Intelligence</p>
-        </motion.div>
+          {/* Data Flow Lines */}
+          <div className="absolute inset-0 w-96 h-96 -translate-x-48 -translate-y-48">
+            <svg className="w-full h-full" viewBox="0 0 400 400">
+              {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => {
+                const radius = 120 + (index % 2) * 40;
+                const angle = (index * 45) * Math.PI / 180;
+                return (
+                  <motion.line
+                    key={index}
+                    x1="200"
+                    y1="200"
+                    x2={200 + Math.cos(angle) * radius}
+                    y2={200 + Math.sin(angle) * radius}
+                    stroke={colors.connection}
+                    strokeWidth="2"
+                    strokeDasharray="5,5"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ 
+                      pathLength: [0, 1, 0], 
+                      opacity: [0, 0.8, 0] 
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: index * 0.4,
+                      ease: "easeInOut"
+                    }}
+                  />
+                );
+              })}
+            </svg>
+          </div>
+
+          {/* Floating Data Particles */}
+          {Array.from({ length: 12 }).map((_, index) => (
+            <motion.div
+              key={`particle-${index}`}
+              className="absolute w-1 h-1 rounded-full"
+              style={{
+                background: colors.accent,
+                boxShadow: `0 0 8px ${colors.accent}`,
+                top: '50%',
+                left: '50%',
+              }}
+              animate={{
+                x: [0, Math.random() * 300 - 150],
+                y: [0, Math.random() * 300 - 150],
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0]
+              }}
+              transition={{
+                duration: 4 + Math.random() * 3,
+                repeat: Infinity,
+                delay: index * 0.5,
+                ease: "easeOut"
+              }}
+            />
+          ))}
+
+          {/* Neural Network Mesh */}
+          <div className="absolute inset-0 w-80 h-80 -translate-x-40 -translate-y-40">
+            <svg className="w-full h-full opacity-30" viewBox="0 0 320 320">
+              {/* Hexagonal network pattern */}
+              {Array.from({ length: 6 }).map((_, ring) => {
+                const radius = 40 + ring * 25;
+                return Array.from({ length: 6 }).map((_, point) => {
+                  const angle = (point * 60) * Math.PI / 180;
+                  const x = 160 + Math.cos(angle) * radius;
+                  const y = 160 + Math.sin(angle) * radius;
+                  
+                  return (
+                    <motion.circle
+                      key={`${ring}-${point}`}
+                      cx={x}
+                      cy={y}
+                      r="2"
+                      fill={colors.secondary}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0.3, 0.8, 0.3] }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: (ring + point) * 0.1
+                      }}
+                    />
+                  );
+                });
+              })}
+            </svg>
+          </div>
+        </div>
       </div>
+
+      {/* Bottom Status Text */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center"
+        animate={{ opacity: [0.6, 1, 0.6] }}
+        transition={{ duration: 3, repeat: Infinity }}
+      >
+        <p className="text-lg font-semibold" style={{ color: colors.text }}>
+          Neural Network Active
+        </p>
+        <p className="text-sm opacity-75" style={{ color: colors.text }}>
+          Processing Intelligence
+        </p>
+      </motion.div>
     </div>
   );
 };
