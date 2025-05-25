@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -5,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowRight, Sparkles, Code, Users } from 'lucide-react';
 import { Navbar } from "@/components/Navbar";
+import Spline from '@splinetool/react-spline';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -58,14 +60,13 @@ const Landing = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[500px] rounded-2xl overflow-hidden bg-gradient-to-br from-orange-100/10 to-blue-100/10 dark:from-orange-500/10 dark:to-blue-500/10"
+              className="relative h-[500px] rounded-2xl overflow-hidden"
             >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 bg-gradient-to-br from-orange-400 to-blue-500 rounded-full mx-auto mb-4 animate-pulse"></div>
-                  <p className="text-foreground">Interactive AI Demo</p>
-                  <p className="text-sm text-muted-foreground">Coming Soon</p>
-                </div>
+              <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-2xl">
+                <Spline
+                  scene="https://prod.spline.design/6Hn5rQ0-sJ1Nq9Rn/scene.splinecode"
+                  className="w-full h-full"
+                />
               </div>
             </motion.div>
           </div>
@@ -74,7 +75,7 @@ const Landing = () => {
         {/* Features Section */}
         <section className="container px-4 py-24 mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Why Choose Lovable AI?</h2>
+            <h2 className="text-3xl font-bold mb-4">Why Choose SmartMinions?</h2>
             <p className="text-xl text-muted-foreground">
               The most advanced platform for AI agent development and deployment
             </p>

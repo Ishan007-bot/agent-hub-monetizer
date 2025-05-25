@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
@@ -11,8 +12,8 @@ export function Navbar() {
       <div className="container flex h-14 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link to="/" className="flex items-center space-x-2">
-            <img src="/logo.svg" alt="Logo" className="h-6 w-6" />
-            <span className="font-bold">Lovable AI</span>
+            <img src="/logo.svg" alt="SmartMinions Logo" className="h-6 w-6" />
+            <span className="font-bold">SmartMinions</span>
           </Link>
           <div className="hidden md:flex gap-6">
             <Link to="/marketplace" className="text-sm font-medium transition-colors hover:text-primary">
@@ -54,4 +55,4 @@ export function Navbar() {
       </div>
     </nav>
   );
-} 
+}
